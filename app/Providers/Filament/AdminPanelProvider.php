@@ -20,7 +20,6 @@ use Illuminate\Cookie\Middleware\EncryptCookies;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\StartSession;
-use Illuminate\Validation\Rules\Email;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
 
 class AdminPanelProvider extends PanelProvider
@@ -29,15 +28,16 @@ class AdminPanelProvider extends PanelProvider
     {
         return $panel
             ->default()
+            ->sidebarCollapsibleOnDesktop()
             ->id('admin')
             ->path('admin')
             ->login()
             ->registration()
-            ->profile(page:Profile::class, isSimple: false)
+            ->profile(page: Profile::class, isSimple: false)
             ->passwordReset()
             ->multiFactorAuthentication([
                 AppAuthentication::make()
-                ->recoverable(),
+                    ->recoverable(),
             ])
 
             /*
@@ -77,4 +77,4 @@ class AdminPanelProvider extends PanelProvider
                 Authenticate::class,
             ]);
     }
-};
+}
