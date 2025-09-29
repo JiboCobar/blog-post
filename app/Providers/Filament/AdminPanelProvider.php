@@ -3,6 +3,7 @@
 namespace App\Providers\Filament;
 
 use App\Filament\Pages\Profile;
+use App\Filament\Pages\UserLogin;
 use Filament\Auth\MultiFactor\App\AppAuthentication;
 use Filament\Auth\MultiFactor\Email\EmailAuthentication;
 use Filament\Http\Middleware\Authenticate;
@@ -31,7 +32,7 @@ class AdminPanelProvider extends PanelProvider
             ->sidebarCollapsibleOnDesktop()
             ->id('admin')
             ->path('admin')
-            ->login()
+            ->login(action: UserLogin::class)
             ->registration()
             ->profile(page: Profile::class, isSimple: false)
             ->passwordReset()
@@ -54,6 +55,7 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\Filament\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\Filament\Pages')
+            ->discoverResources(in: app_path('Filament/App'), for: 'App\Filament\Resources')
             ->pages([
                 Dashboard::class,
             ])
